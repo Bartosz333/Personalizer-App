@@ -1,6 +1,6 @@
 import shortid from 'shortid';
 import clsx from 'clsx';
-import styles from './OptionColor.module.scss';
+import styles from '../../Product.module.scss';
 import PropTypes from 'prop-types';
 
 const OptionColor = ({ colors, currentColor, setCurrentColor }) => {

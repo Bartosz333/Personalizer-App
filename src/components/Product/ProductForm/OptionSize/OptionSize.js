@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import styles from './OptionSize.module.scss';
+import styles from '../../Product.module.scss';
 import PropTypes from 'prop-types';
 
 const OptionSize = ({ sizes, currentSize, setCurrentSize }) => {

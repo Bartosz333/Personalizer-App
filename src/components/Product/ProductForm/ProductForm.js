@@ -1,4 +1,4 @@
-import styles from './ProductForm.module.scss';
+import styles from '../Product.module.scss';
 import OptionSize from './OptionSize/OptionSize';
 import OptionColor from './OptionColor/OptionColor';
 import Button from './Button/Button';
