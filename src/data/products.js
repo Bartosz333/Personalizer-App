@@ -25,6 +25,19 @@ const productsData = [
       { name: 'XL', additionalPrice: 4 },
     ],
   },
+  {
+    id: 3,
+    name: 'react2',
+    title: 'React2 shirt',
+    basePrice: 18,
+    colors: ['red', 'blue', 'green'],
+    sizes: [
+      { name: 'S', additionalPrice: 0 },
+      { name: 'M', additionalPrice: 3 },
+      { name: 'L', additionalPrice: 4 },
+      { name: 'XL', additionalPrice: 5 },
+    ],
+  },
 ];
 
 export default productsData;
