@@ -1,24 +1,27 @@
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductImage from './ProductImage/ProductImage';
 import ProductForm from './ProductForm/ProductForm.js';
 
 const Product = ({ id, name, title, basePrice, colors, sizes }) => {
-  const getPrice = () => {
-    const foundSize = sizes.find((size) => size.name === currentSize);
-    return basePrice + foundSize.additionalPrice;
-  };
-
   const [currentColor, setCurrentColor] = useState(colors[0]);
   const [currentSize, setCurrentSize] = useState(sizes[0].name);
+
+  /** 
+  useMemo saves data in memory and recalculates only when
+  one of the changes ([basePrice, currentSize, sizes]) changes. */
+  const getPrice = useMemo(() => {
+    const foundSize = sizes.find((size) => size.name === currentSize);
+    return basePrice + foundSize.additionalPrice;
+  }, [basePrice, currentSize, sizes]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     console.log('Summary');
     console.log('==============');
     console.log('Name: ', title);
-    console.log('Price: ', getPrice());
+    console.log('Price: ', getPrice, '$');
     console.log('Size: ', currentSize);
     console.log('Color: ', currentColor);
   };
@@ -29,7 +32,7 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
       <div>
         <header>
           <h2 className={styles.name}>{title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice}$</span>
         </header>
         <ProductForm
           sizes={sizes}
@@ -46,7 +49,6 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
 };
 
 Product.propTypes = {
-  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   basePrice: PropTypes.number.isRequired,
