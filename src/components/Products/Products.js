@@ -6,9 +6,13 @@ const Products = () => {
   const [products] = useState(productsData);
 
   return (
+    /** 
+In this way (map method), the Products component will generate the appropriate
+number of Product components based on the data contained in the array. */
     <section>
-      <Product {...products[0]} />
-      <Product {...products[1]} />
+      {products.map((product) => (
+        <Product key={product.id} {...product} />
+      ))}
     </section>
   );
 };

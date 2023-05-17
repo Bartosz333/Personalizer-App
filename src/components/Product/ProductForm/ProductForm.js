@@ -34,8 +34,17 @@ const ProductForm = ({
 };
 
 ProductForm.propTypes = {
-  colors: PropTypes.array.isRequired,
-  sizes: PropTypes.array.isRequired,
+  /**
+we expect an array of "colors" with type string */
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /** 
+we expect an array "sizes" which has two objects of type string and number */
+  sizes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      additionalPrice: PropTypes.number,
+    })
+  ).isRequired,
   submitHandler: PropTypes.func.isRequired,
   currentSize: PropTypes.string.isRequired,
   currentColor: PropTypes.string.isRequired,

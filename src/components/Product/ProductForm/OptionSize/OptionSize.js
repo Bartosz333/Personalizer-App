@@ -1,22 +1,27 @@
-import shortid from 'shortid';
 import styles from '../../Product.module.scss';
 import PropTypes from 'prop-types';
 
 const OptionSize = ({ sizes, currentSize, setCurrentSize }) => {
+  /** 
+we create a new uniqueNameSizes array that contains only unique size names.
+ Then, we iterate over this uniqueNameSizes array,
+ rather than the original sizes array, to render buttons for unique sizes. */
+  const uniqueNameSize = [...new Set(sizes.map((size) => size.name))];
+
   return (
     <div className={styles.sizes}>
       <h3 className={styles.optionLabel}>Sizes</h3>
       <ul className={styles.choices}>
-        {sizes.map((size) => (
-          <li key={shortid()}>
+        {uniqueNameSize.map((sizeName) => (
+          <li key={sizeName}>
             <button
               onClick={() => {
-                setCurrentSize(size.name);
+                setCurrentSize(sizeName);
               }}
               type='button'
-              className={size.name === currentSize ? styles.active : ''}
+              className={sizeName === currentSize ? styles.active : ''}
             >
-              {size.name}
+              {sizeName}
             </button>
           </li>
         ))}
@@ -26,7 +31,12 @@ const OptionSize = ({ sizes, currentSize, setCurrentSize }) => {
 };
 
 OptionSize.propTypes = {
-  sizes: PropTypes.array.isRequired,
+  sizes: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      additionalPrice: PropTypes.number,
+    })
+  ).isRequired,
   currentSize: PropTypes.string.isRequired,
   setCurrentSize: PropTypes.func.isRequired,
 };
