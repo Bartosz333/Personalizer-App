@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import styles from '../../Product.module.scss';
 import PropTypes from 'prop-types';
 
@@ -10,10 +11,10 @@ const OptionSize = ({ sizes, currentSize, setCurrentSize }) => {
           <li key={size.name}>
             <button
               onClick={() => {
-                setCurrentSize(size.name);
+                setCurrentSize(size);
               }}
               type='button'
-              className={size.name === currentSize ? styles.active : ''}
+              className={clsx(size.name === currentSize && styles.active)}
             >
               {size.name}
             </button>

@@ -4,17 +4,16 @@ import { useState, useMemo } from 'react';
 import ProductImage from './ProductImage/ProductImage';
 import ProductForm from './ProductForm/ProductForm.js';
 
-const Product = ({ id, name, title, basePrice, colors, sizes }) => {
+const Product = ({ name, title, basePrice, colors, sizes }) => {
   const [currentColor, setCurrentColor] = useState(colors[0]);
-  const [currentSize, setCurrentSize] = useState(sizes[0].name);
+  const [currentSize, setCurrentSize] = useState(sizes[0]);
 
   /** 
   useMemo saves data in memory and recalculates only when
   one of the changes ([basePrice, currentSize, sizes]) changes. */
   const getPrice = useMemo(() => {
-    const foundSize = sizes.find((size) => size.name === currentSize);
-    return basePrice + foundSize.additionalPrice;
-  }, [basePrice, currentSize, sizes]);
+    return basePrice + currentSize.additionalPrice;
+  }, [basePrice, currentSize]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
     console.log('==============');
     console.log('Name: ', title);
     console.log('Price: ', getPrice, '$');
-    console.log('Size: ', currentSize);
+    console.log('Size: ', currentSize.name);
     console.log('Color: ', currentColor);
   };
 
@@ -39,7 +38,7 @@ const Product = ({ id, name, title, basePrice, colors, sizes }) => {
           colors={colors}
           submitHandler={submitHandler}
           currentColor={currentColor}
-          currentSize={currentSize}
+          currentSize={currentSize.name}
           setCurrentColor={setCurrentColor}
           setCurrentSize={setCurrentSize}
         />
